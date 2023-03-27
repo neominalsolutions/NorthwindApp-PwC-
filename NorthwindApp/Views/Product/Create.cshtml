@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!-- Post Model Post Model Name alanına bağladık. -->
+@model CreateProductInputModel
+
+
+<h1>Create</h1>
+
+<form method="post">
+  <div asp-validation-summary="All"></div>
+  <label>
+    Kullanıcı Adı: 
+  </label>
+  <input asp-for="Name"  placeholder="İsim"/>
+  <span style="color:red" asp-validation-for="Name"></span>
+  <br />
+  <input type="submit" value="Kaydet" />
+</form>
+

@@ -1,0 +1,48 @@
+﻿
+
+<!--declaration ismi veriyoruz-->
+<!-- intellisense için kulandık -->
+@model List<ProductViewModel>
+
+  <!-- Dto gibi düşüne biliriz Page ViewModel-->
+@*@model ProductListPageViewModel;*@
+
+<!-- @@Model.Products -->
+<!-- @@Model.Error -->
+
+
+  <!-- Tupple Örneği-->
+
+@*@model Tuple<List<ProductViewModel>, ErrorViewModel>*@
+
+
+  <!--Gönderilen modele bağlanmak için büyük Model ismini kullanıyoruz. -->
+
+
+@*  ErrorModel : @Model.Item2.RequestId  *@
+  <!--Error View Model-->
+@*  @Model.Item1*@
+  <!-- List Product View Model-->
+
+ <ul>
+   @foreach (var item in Model)
+  {
+    <li>
+      
+      <span>
+        Ürün Adı:    @item.Name
+      </span>
+
+      <span>
+        Fiyat: @item.Price
+      </span>
+
+      <span>
+        Stok: @item.Stock adet
+      </span>
+      
+   
+    </li>
+  }
+
+ </ul>
