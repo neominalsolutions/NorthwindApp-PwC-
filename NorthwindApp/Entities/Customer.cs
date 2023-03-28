@@ -8,7 +8,7 @@ namespace NorthwindApp.Entities
 
   // DataAnnotations yöntemi
 
-  [Table("Customer")]
+  //[Table("Customer")]
     public partial class Customer
     {
         public Customer()
@@ -17,11 +17,11 @@ namespace NorthwindApp.Entities
             CustomerTypes = new HashSet<CustomerDemographic>();
         }
 
-        [Key]
+        //[Key]
         public string CustomerId { get; set; } = null!;
 
-        [StringLength(12)]
-        [Required]
+        //[StringLength(12)]
+        //[Required]
         public string CompanyName { get; set; } = null!;
         public string? ContactName { get; set; }
         public string? ContactTitle { get; set; }

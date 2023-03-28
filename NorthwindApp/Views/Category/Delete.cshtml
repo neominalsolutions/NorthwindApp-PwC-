@@ -10,7 +10,11 @@
 
 
 <p>
-  @Model.CategoryName silmek istediğinize emin misiniz ?
+  @ViewBag.CName silmek istediğinize emin misiniz ?
+
+  <p>
+    @ViewData["Desc"]
+  </p>
 
   <form method="post">
     <input type="hidden" asp-for="CategoryId" />

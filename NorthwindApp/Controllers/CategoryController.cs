@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using NorthwindApp.Entities;
 using NorthwindApp.Models;
+using System.Collections.Generic;
 using System.Security.Cryptography.Xml;
 
 namespace NorthwindApp.Controllers
@@ -68,13 +69,23 @@ namespace NorthwindApp.Controllers
       }
 
 
+      // actiondan kendi view'une bir veri göndermek için ise ViewBag yada ViewData denilen yapılar kullanılır
+
+      ViewBag.CName = dbEntity.CategoryName; // dynamic tipinde yazılmış
+      ViewData["Desc"] = dbEntity.Description;
+      // dictionary formatında
+
+
       // delete edilecek veriyi göstermek için kullanıcaz
-      return View(dbEntity);
+      return View();
     }
 
     [HttpPost]
     public IActionResult Delete(Category model)
     {
+
+      // tempdata viewbag ve viewData
+
       // db deb ilgili yadı bulucaz
       // redirect Result
 
@@ -94,7 +105,12 @@ namespace NorthwindApp.Controllers
       // disconneted yöntem
       //db.Categories.Attach(model);
       db.Categories.Remove(model); // remove da attach yapıyor gizliden, id olduğu için yaptı
-      db.SaveChanges();
+      int result = db.SaveChanges(); // kaç satır kayıt etkilendi.
+
+      // actionlar arası veri taşıma yönetemlerinden biri Tempdata
+
+      TempData["Message"] = result > 0 ? "Kayıt Başarılı" : "Hatalı";
+
 
       return Redirect("/Category/List");
     }
