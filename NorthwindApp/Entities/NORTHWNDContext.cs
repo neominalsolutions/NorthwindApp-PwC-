@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using NorthwindApp.Entities.Configurations;
 
 namespace NorthwindApp.Entities
 {
@@ -98,32 +99,26 @@ namespace NorthwindApp.Entities
                 entity.Property(e => e.UnitPrice).HasColumnType("money");
             });
 
-            modelBuilder.Entity<Category>(entity =>
-            {
-                //entity.ToTable("KategoriTablous");
-                entity.HasIndex(e => e.CategoryName, "CategoryName");
 
-                entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
-                entity.Property(e => e.CategoryName).HasMaxLength(15);
+      modelBuilder.Entity<CategorySalesFor1997>(entity =>
+      {
+        entity.HasNoKey();
 
-                entity.Property(e => e.Description).HasColumnType("ntext");
+        entity.ToView("Category Sales for 1997");
 
-                entity.Property(e => e.Picture).HasColumnType("image");
-            });
+        entity.Property(e => e.CategoryName).HasMaxLength(15);
 
-            modelBuilder.Entity<CategorySalesFor1997>(entity =>
-            {
-                entity.HasNoKey();
+        entity.Property(e => e.CategorySales).HasColumnType("money");
+      });
 
-                entity.ToView("Category Sales for 1997");
 
-                entity.Property(e => e.CategoryName).HasMaxLength(15);
+      // bu konfigürasyonu db ye uygula 
+      //modelBuilder.ApplyConfiguration(new CategoryConfiguration());
 
-                entity.Property(e => e.CategorySales).HasColumnType("money");
-            });
 
-            modelBuilder.Entity<CurrentProductList>(entity =>
+
+      modelBuilder.Entity<CurrentProductList>(entity =>
             {
                 entity.HasNoKey();
 

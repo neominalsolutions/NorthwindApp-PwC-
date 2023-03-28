@@ -46,6 +46,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// Default sayfa ilk açýldýðýnda uygulama Home/Index route yönlendirir.
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

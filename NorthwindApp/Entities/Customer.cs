@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NorthwindApp.Entities
 {
+
+  // DataAnnotations yöntemi
 
   [Table("Customer")]
     public partial class Customer
@@ -14,7 +17,11 @@ namespace NorthwindApp.Entities
             CustomerTypes = new HashSet<CustomerDemographic>();
         }
 
+        [Key]
         public string CustomerId { get; set; } = null!;
+
+        [StringLength(12)]
+        [Required]
         public string CompanyName { get; set; } = null!;
         public string? ContactName { get; set; }
         public string? ContactTitle { get; set; }

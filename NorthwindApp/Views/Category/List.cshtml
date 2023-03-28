@@ -1,0 +1,155 @@
+﻿
+
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model CategoryViewModel
+
+
+
+@section siteStyles {
+  <style>
+      p {
+        background-color:green;
+      }
+</style>
+}
+
+
+
+
+
+<div class="d-flex">
+  <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#createModal">
+    Ekle
+  </button>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Kategori Adı</th>
+      <th scope="col">Açıklama</th>
+      <th scope="col">İşlemler</th>
+    </tr>
+  </thead>
+  <tbody id="tBody">
+
+    @foreach (var item in Model.Categories)
+    {
+      <tr>
+        <td>@item.CategoryName</td>
+        <td>@item.Description</td>
+        <td>
+          <a type="button" class="btn btn-primary" asp-action="Edit" asp-controller="Category" asp-route-id="@item.CategoryId">Edit</a>
+          &nbsp;
+          <a asp-action="Delete" asp-controller="Category" asp-route-id="@item.CategoryId" type="button" class="btn btn-danger">Delete</a>
+
+        </td>
+      </tr>
+    }
+    
+  
+</table>
+
+
+
+<form id="frm" onsubmit="OnSubmit(event)">
+<div id="createModal" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Category Create Modal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="mb-3">
+            <label for="CategoryName" class="form-label">Category</label>
+            <!--name alanları üzerinden veri gönderdik. mvc değil ajax üzerinden veri gönderiyorum -->
+            <input id="CategoryName" type="text" name="CategoryName" class="form-control"  placeholder="name@example.com">
+        </div>
+
+        <div class="mb-3">
+          <label for="Description" class="form-label">Description</label>
+            <input id="Description" type="text" name="Description" class="form-control"  placeholder="name@example.com">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+        <input class="btn btn-success" type="submit" value="Kaydet" />
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+
+<!--Layout script sonrasına gelmesini garanti ettik-->
+@section Scripts {
+
+  <script>
+
+
+    const OnSubmit = (event) => {
+
+       
+
+      // formu durdur
+        event.preventDefault();
+        // post back engellenmiş olur
+        // sayfa yenilenmeden bu kayıot işlemini yapmak için yazdık.
+        console.log('event',event);
+        $('#createModal').modal('hide');
+
+        const formValues = $('#frm').serializeArray();
+        let formValue = {};
+
+        // js Forof 
+        $.map(formValues, function (key, index) {
+            formValue[key['name']] = key['value'];
+        });
+
+        console.log('formValue', formValue);
+
+      
+        // jquery kütüphanesi ile ajax call yaptık
+
+        $.ajax({
+          method:'POST', // post isteği
+          data: formValue, // json data
+          url:'/Category/Create', // post url
+          success:(data) => { // işlem başarılı doduğunda
+            console.log('data', data);
+
+            //`${formValue.name} -:- ${formValue.name2}`
+
+                $('#tBody').prepend(`
+                <tr>
+                    <td>${data.categoryName}
+                </td>
+                <td>${data.description}</td>
+                 <td>
+                  <a type="button" class="btn btn-primary" href="/Category/Edit/${data.categoryId}">Edit</a>
+                  &nbsp;
+                  <a href="/Category/Delete/${data.categoryId}" type="button" class="btn btn-danger">Delete</a>
+
+                </td>
+                </tr>`)
+          },
+          error:(err) => { // işlemde hata oluşursa
+            console.log('err', err);
+          },
+          complete:() => {
+            alert('İşlem Gerçekleşti')
+          }
+        })
+
+
+    }
+  </script>
+
+}

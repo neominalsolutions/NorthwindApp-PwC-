@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Category
+
+
+<form asp-action="Update" asp-controller="Category" method="post">
+
+  <!--Hidden Input ile hangi Id değeri güncellediğimizi göstermemiz lazım-->
+
+  <input asp-for="CategoryId" type="hidden" />
+
+  <div class="mb-3">
+    <label for="CategoryName" class="form-label">Email address</label>
+    <input asp-for="CategoryName" type="text" class="form-control" placeholder="Kategori Adı">
+  </div>
+
+  <div class="mb-3">
+    <label for="Description" class="form-label">Email address</label>
+    <input asp-for="Description" class="form-control" placeholder="Kategori Açıklaması">
+  </div>
+
+  <div class="mb-3">
+    <input type="submit" class="btn btn-primary" value="Güncelle" />
+  </div>
+
+</form>
+

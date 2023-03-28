@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Category
+
+<h1>Delete</h1>
+
+
+<p>
+  @Model.CategoryName silmek istediğinize emin misiniz ?
+
+  <form method="post">
+    <input type="hidden" asp-for="CategoryId" />
+    <input type="submit"  value="Sil"/>
+  </form>
+</p>
+

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/NorthwindApp.styles.css" asp-append-version="true" />
+    @await RenderSectionAsync("siteStyles", required:false);
 </head>
 <body>
     <header>
@@ -25,6 +26,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="List">Kategoriler</a>
+            </li>
                        <!-- asp-page yok -->
                        <!-- Hangi Controller Hangi Action Yönlenileceği ile alakalı bir tag helper varmış -->
             <li class="nav-item">
@@ -49,6 +53,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+  <!--Layout üzerinden sayfalar türediği için Layout üzerindeki js dosyalarının sonuna ilgili sayfalardaki js dosyalarının eklenebilmesi için RenderSectionAsync ile asenkron sayfa açılışan paralel script doğru sıra ile yüklemesini  -->
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
